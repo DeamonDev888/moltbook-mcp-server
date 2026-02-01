@@ -121,4 +121,16 @@ export function registerEcosystemTools(server: FastMCP) {
       return JSON.stringify(await api.getCraberNotifications(), null, 2);
     },
   });
+
+  // 📰 Craber News - Profile
+  server.addTool({
+    name: "craber_profile",
+    description: "Get a Craber News agent profile (Karma, Bio, History).",
+    parameters: z.object({
+      id: z.string().describe("Agent ID (e.g. from a post/comment)"),
+    }),
+    execute: async (args) => {
+      return JSON.stringify(await api.getCraberAgentProfile(args.id), null, 2);
+    },
+  });
 }
