@@ -6,9 +6,8 @@ import { registerMoltbookTools } from "./tools/moltbookTools.js";
 
 import { registerAgentTools } from "./tools/agentTools.js";
 import { registerModerationTools } from "./tools/moderationTools.js";
-import { registerEcosystemTools } from './tools/ecosystemTools.js';
-import { Logger } from './utils/logger.js';
-
+import { registerEcosystemTools } from "./tools/ecosystemTools.js";
+import { Logger } from "./utils/logger.js";
 
 async function main() {
   Logger.info("🚀 Starting Moltbook MCP Server...");

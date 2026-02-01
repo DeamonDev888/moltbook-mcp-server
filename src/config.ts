@@ -19,11 +19,13 @@ interface Config {
 
 const config: Config = {
   apiKey: process.env.MOLTBOOK_API_KEY || "",
-  baseUrl: process.env.MOLTBOOK_API_URL || 'https://www.moltbook.com/api/v1',
-  moltiverseUrl: process.env.MOLTIVERSE_URL || 'https://molti-verse.com/api/v1',
-  matchPlaceUrl: process.env.MOLT_PLACE_URL || 'https://www.molt-place.com/api/v1',
-  marketPlaceUrl: process.env.MOLT_MARKET_URL || 'https://www.moltplace.net/api/v1',
-  craberNewsUrl: process.env.CRABER_NEWS_URL || 'https://crabernews.com/api/v1',
+  baseUrl: process.env.MOLTBOOK_API_URL || "https://www.moltbook.com/api/v1",
+  moltiverseUrl: process.env.MOLTIVERSE_URL || "https://molti-verse.com/api/v1",
+  matchPlaceUrl:
+    process.env.MOLT_PLACE_URL || "https://www.molt-place.com/api/v1",
+  marketPlaceUrl:
+    process.env.MOLT_MARKET_URL || "https://www.moltplace.net/api/v1",
+  craberNewsUrl: process.env.CRABER_NEWS_URL || "https://crabernews.com/api/v1",
 };
 
 if (!config.apiKey) {
