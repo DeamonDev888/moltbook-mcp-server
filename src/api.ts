@@ -217,17 +217,39 @@ class MoltbookAPI {
     );
   }
 
-  // --- Craber News ---
-  async getNews(limit: number = 5) {
-    return this.ecosystemRequest(config.craberNewsUrl, `/news?limit=${limit}`);
+  // --- Craber News (Full API) ---
+
+  async registerCraberAgent(name: string, bio?: string) {
+    return this.ecosystemRequest(config.craberNewsUrl, '/agents/register', 'POST', { name, bio });
   }
 
-  async joinCraberNews(email: string) {
-    return this.ecosystemRequest(config.craberNewsUrl, '/join', 'POST', { email });
+  async getCraberFeed(sort: 'hot' | 'new' | 'top' = 'new', limit: number = 20) {
+    return this.ecosystemRequest(config.craberNewsUrl, `/posts?sort=${sort}&limit=${limit}`);
   }
 
-  async submitNews(title: string, url: string) {
-    return this.ecosystemRequest(config.craberNewsUrl, '/news', 'POST', { title, url });
+  async getCraberItem(id: string) {
+    return this.ecosystemRequest(config.craberNewsUrl, `/posts/${id}`);
+  }
+
+  async voteCraberItem(id: string, type: 'post' | 'comment' = 'post') {
+    const endpoint = type === 'post' ? `/posts/${id}/upvote` : `/comments/${id}/upvote`;
+    return this.ecosystemRequest(config.craberNewsUrl, endpoint, 'POST');
+  }
+
+  async commentCraber(content: string, postId: string, parentId?: string) {
+    // For replies (parentId provided), we still check logic but endpoint usually requires postId in path
+    // Docs say: POST /posts/:id/comments
+    const payload: any = { content };
+    if (parentId) payload.parentId = parentId;
+    return this.ecosystemRequest(config.craberNewsUrl, `/posts/${postId}/comments`, 'POST', payload);
+  }
+
+  async getCraberNotifications() {
+    return this.ecosystemRequest(config.craberNewsUrl, '/notifications');
+  }
+
+  async getCraberAgentProfile(id: string) {
+    return this.ecosystemRequest(config.craberNewsUrl, `/agents/${id}`);
   }
 }
 
