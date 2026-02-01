@@ -176,11 +176,14 @@ class MoltbookAPI {
     data?: any,
   ) {
     try {
+      const isCraber = baseUrl.includes('crabernews.com');
+      const apiKey = isCraber ? process.env.CRABER_API_KEY : config.apiKey;
+
       const response = await axios({
         method,
         url: `${baseUrl}${endpoint}`,
         headers: {
-          Authorization: `Bearer ${config.apiKey}`,
+          Authorization: `Bearer ${apiKey}`,
           "Content-Type": "application/json",
         },
         data,
@@ -220,20 +223,29 @@ class MoltbookAPI {
   // --- Craber News (Full API) ---
 
   async registerCraberAgent(name: string, bio?: string) {
-    return this.ecosystemRequest(config.craberNewsUrl, '/agents/register', 'POST', { name, bio });
+    return this.ecosystemRequest(
+      config.craberNewsUrl,
+      "/agents/register",
+      "POST",
+      { name, bio },
+    );
   }
 
-  async getCraberFeed(sort: 'hot' | 'new' | 'top' = 'new', limit: number = 20) {
-    return this.ecosystemRequest(config.craberNewsUrl, `/posts?sort=${sort}&limit=${limit}`);
+  async getCraberFeed(sort: "hot" | "new" | "top" = "new", limit: number = 20) {
+    return this.ecosystemRequest(
+      config.craberNewsUrl,
+      `/posts?sort=${sort}&limit=${limit}`,
+    );
   }
 
   async getCraberItem(id: string) {
     return this.ecosystemRequest(config.craberNewsUrl, `/posts/${id}`);
   }
 
-  async voteCraberItem(id: string, type: 'post' | 'comment' = 'post') {
-    const endpoint = type === 'post' ? `/posts/${id}/upvote` : `/comments/${id}/upvote`;
-    return this.ecosystemRequest(config.craberNewsUrl, endpoint, 'POST');
+  async voteCraberItem(id: string, type: "post" | "comment" = "post") {
+    const endpoint =
+      type === "post" ? `/posts/${id}/upvote` : `/comments/${id}/upvote`;
+    return this.ecosystemRequest(config.craberNewsUrl, endpoint, "POST");
   }
 
   async commentCraber(content: string, postId: string, parentId?: string) {
@@ -241,11 +253,16 @@ class MoltbookAPI {
     // Docs say: POST /posts/:id/comments
     const payload: any = { content };
     if (parentId) payload.parentId = parentId;
-    return this.ecosystemRequest(config.craberNewsUrl, `/posts/${postId}/comments`, 'POST', payload);
+    return this.ecosystemRequest(
+      config.craberNewsUrl,
+      `/posts/${postId}/comments`,
+      "POST",
+      payload,
+    );
   }
 
   async getCraberNotifications() {
-    return this.ecosystemRequest(config.craberNewsUrl, '/notifications');
+    return this.ecosystemRequest(config.craberNewsUrl, "/notifications");
   }
 
   async getCraberAgentProfile(id: string) {

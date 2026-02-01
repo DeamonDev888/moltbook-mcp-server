@@ -40,66 +40,85 @@ export function registerEcosystemTools(server: FastMCP) {
     },
   });
 
-    // 📰 Craber News - Registration
-    server.addTool({
-        name: 'craber_register',
-        description: 'Register a new agent account on Craber News.',
-        parameters: z.object({
-            name: z.string().describe('Agent Name'),
-            bio: z.string().optional().describe('Short bio'),
-        }),
-        execute: async (args) => {
-            return JSON.stringify(await api.registerCraberAgent(args.name, args.bio), null, 2);
-        },
-    });
+  // 📰 Craber News - Registration
+  server.addTool({
+    name: "craber_register",
+    description: "Register a new agent account on Craber News.",
+    parameters: z.object({
+      name: z.string().describe("Agent Name"),
+      bio: z.string().optional().describe("Short bio"),
+    }),
+    execute: async (args) => {
+      return JSON.stringify(
+        await api.registerCraberAgent(args.name, args.bio),
+        null,
+        2,
+      );
+    },
+  });
 
-    // 📰 Craber News - Feed
-    server.addTool({
-        name: 'craber_feed',
-        description: 'Read the latest posts from Craber News (AI Hacker News).',
-        parameters: z.object({
-            sort: z.enum(['hot', 'new', 'top']).optional().default('new'),
-            limit: z.number().optional().default(10),
-        }),
-        execute: async (args) => {
-            return JSON.stringify(await api.getCraberFeed(args.sort, args.limit), null, 2);
-        },
-    });
+  // 📰 Craber News - Feed
+  server.addTool({
+    name: "craber_feed",
+    description: "Read the latest posts from Craber News (AI Hacker News).",
+    parameters: z.object({
+      sort: z.enum(["hot", "new", "top"]).optional().default("new"),
+      limit: z.number().optional().default(10),
+    }),
+    execute: async (args) => {
+      return JSON.stringify(
+        await api.getCraberFeed(args.sort, args.limit),
+        null,
+        2,
+      );
+    },
+  });
 
-    // 📰 Craber News - Vote
-    server.addTool({
-        name: 'craber_vote',
-        description: 'Upvote a post or comment on Craber News.',
-        parameters: z.object({
-            id: z.string().describe('ID of the post or comment'),
-            type: z.enum(['post', 'comment']).default('post'),
-        }),
-        execute: async (args) => {
-            return JSON.stringify(await api.voteCraberItem(args.id, args.type), null, 2);
-        },
-    });
+  // 📰 Craber News - Vote
+  server.addTool({
+    name: "craber_vote",
+    description: "Upvote a post or comment on Craber News.",
+    parameters: z.object({
+      id: z.string().describe("ID of the post or comment"),
+      type: z.enum(["post", "comment"]).default("post"),
+    }),
+    execute: async (args) => {
+      return JSON.stringify(
+        await api.voteCraberItem(args.id, args.type),
+        null,
+        2,
+      );
+    },
+  });
 
-    // 📰 Craber News - Comment
-    server.addTool({
-        name: 'craber_comment',
-        description: 'Comment on a post or reply to a comment on Craber News.',
-        parameters: z.object({
-            postId: z.string().describe('ID of the post'),
-            content: z.string().describe('Your comment'),
-            parentId: z.string().optional().describe('ID of parent comment (if reply)'),
-        }),
-        execute: async (args) => {
-            return JSON.stringify(await api.commentCraber(args.content, args.postId, args.parentId), null, 2);
-        },
-    });
+  // 📰 Craber News - Comment
+  server.addTool({
+    name: "craber_comment",
+    description: "Comment on a post or reply to a comment on Craber News.",
+    parameters: z.object({
+      postId: z.string().describe("ID of the post"),
+      content: z.string().describe("Your comment"),
+      parentId: z
+        .string()
+        .optional()
+        .describe("ID of parent comment (if reply)"),
+    }),
+    execute: async (args) => {
+      return JSON.stringify(
+        await api.commentCraber(args.content, args.postId, args.parentId),
+        null,
+        2,
+      );
+    },
+  });
 
-    // 📰 Craber News - Notifications
-    server.addTool({
-        name: 'craber_notifications',
-        description: 'Check your Craber News notifications (replies).',
-        parameters: z.object({}),
-        execute: async () => {
-            return JSON.stringify(await api.getCraberNotifications(), null, 2);
-        },
-    });
+  // 📰 Craber News - Notifications
+  server.addTool({
+    name: "craber_notifications",
+    description: "Check your Craber News notifications (replies).",
+    parameters: z.object({}),
+    execute: async () => {
+      return JSON.stringify(await api.getCraberNotifications(), null, 2);
+    },
+  });
 }
