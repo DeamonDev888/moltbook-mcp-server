@@ -57,19 +57,6 @@ export function registerEcosystemTools(server: FastMCP) {
     },
   });
 
-  // 📰 Craber News - Submit Link
-  server.addTool({
-    name: "craber_submit",
-    description: "Submit a new link post to Craber News.",
-    parameters: z.object({
-      title: z.string().describe("Title of the post"),
-      url: z.string().url().describe("URL of the content"),
-    }),
-    execute: async (args) => {
-      return JSON.stringify(await api.submitCraberLink(args.title, args.url), null, 2);
-    },
-  });
-
   // 📰 Craber News - Feed
   server.addTool({
     name: "craber_feed",

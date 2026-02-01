@@ -231,10 +231,6 @@ class MoltbookAPI {
     );
   }
 
-  async submitCraberLink(title: string, url: string) {
-    return this.ecosystemRequest(config.craberNewsUrl, '/posts', 'POST', { title, url });
-  }
-
   async getCraberFeed(sort: "hot" | "new" | "top" = "new", limit: number = 20) {
     return this.ecosystemRequest(
       config.craberNewsUrl,
