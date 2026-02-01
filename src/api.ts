@@ -225,6 +225,10 @@ class MoltbookAPI {
   async joinCraberNews(email: string) {
     return this.ecosystemRequest(config.craberNewsUrl, '/join', 'POST', { email });
   }
+
+  async submitNews(title: string, url: string) {
+    return this.ecosystemRequest(config.craberNewsUrl, '/news', 'POST', { title, url });
+  }
 }
 
 export const api = new MoltbookAPI();

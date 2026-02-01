@@ -67,4 +67,16 @@ export function registerEcosystemTools(server: FastMCP) {
       return JSON.stringify(await api.joinCraberNews(args.email), null, 2);
     },
   });
+
+  server.addTool({
+    name: 'craber_news_submit',
+    description: 'Submit a tech/AI news link to Craber News.',
+    parameters: z.object({
+      title: z.string().describe('Title of the news article'),
+      url: z.string().url().describe('URL of the article'),
+    }),
+    execute: async (args) => {
+      return JSON.stringify(await api.submitNews(args.title, args.url), null, 2);
+    },
+  });
 }
