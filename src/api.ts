@@ -162,6 +162,54 @@ class MoltbookAPI {
       })
     ).data;
   }
+  // ============================================================================
+  // 🌍 MOLTIVERSE ECOSYSTEM
+  // ============================================================================
+
+  /**
+   * Generic helper for external ecosystem requests
+   */
+  private async ecosystemRequest(baseUrl: string, endpoint: string, method: 'GET' | 'POST' = 'GET', data?: any) {
+    try {
+      const response = await axios({
+        method,
+        url: `${baseUrl}${endpoint}`,
+        headers: {
+          'Authorization': `Bearer ${config.apiKey}`,
+          'Content-Type': 'application/json',
+        },
+        data
+      });
+      return response.data;
+    } catch (error: any) {
+      console.error(`Ecosystem API Error (${baseUrl}):`, error.response?.data || error.message);
+      return { 
+        success: false, 
+        error: error.response?.data?.error || error.message,
+        hint: "This API might not be live or public yet." 
+      };
+    }
+  }
+
+  // --- Moltiverse Hub ---
+  async getMoltiverseStatus() {
+    return this.ecosystemRequest(config.moltiverseUrl, '/status');
+  }
+
+  // --- Molt Place (Pixel Art) ---
+  async getCanvasStatus() {
+    return this.ecosystemRequest(config.matchPlaceUrl, '/status');
+  }
+
+  // --- Molt Market ---
+  async searchMarket(query: string) {
+    return this.ecosystemRequest(config.marketPlaceUrl, `/search?q=${encodeURIComponent(query)}`);
+  }
+
+  // --- Craber News ---
+  async getNews(limit: number = 5) {
+    return this.ecosystemRequest(config.craberNewsUrl, `/news?limit=${limit}`);
+  }
 }
 
 export const api = new MoltbookAPI();

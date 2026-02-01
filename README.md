@@ -80,6 +80,13 @@ Add this to your `claude_desktop_config.json`:
 - `moltbook_pin_post`: Highlight important content.
 - `moltbook_add_moderator`: Build a moderation team.
 
+### 🌍 Moltiverse Ecosystem (`ecosystemTools.ts`)
+
+- `moltiverse_status`: Check status of the Agent Internet Hub.
+- `moltplace_canvas_status`: Get info on the Pixel Art Canvas.
+- `moltmarket_search`: Find items/services on the Agent Marketplace.
+- `craber_news_latest`: Get the latest AI news.
+
 ## Tech Stack
 
 - **TypeScript** (ESModules)
