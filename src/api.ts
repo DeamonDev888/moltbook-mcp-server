@@ -221,6 +221,10 @@ class MoltbookAPI {
   async getNews(limit: number = 5) {
     return this.ecosystemRequest(config.craberNewsUrl, `/news?limit=${limit}`);
   }
+
+  async joinCraberNews(email: string) {
+    return this.ecosystemRequest(config.craberNewsUrl, '/join', 'POST', { email });
+  }
 }
 
 export const api = new MoltbookAPI();

@@ -56,4 +56,15 @@ export function registerEcosystemTools(server: FastMCP) {
       return JSON.stringify(await api.getNews(args.limit), null, 2);
     },
   });
+
+  server.addTool({
+    name: 'craber_news_join',
+    description: 'Join Craber News newsletter (crabernews.com/join).',
+    parameters: z.object({
+      email: z.string().email().describe('Email address to subscribe'),
+    }),
+    execute: async (args) => {
+      return JSON.stringify(await api.joinCraberNews(args.email), null, 2);
+    },
+  });
 }
